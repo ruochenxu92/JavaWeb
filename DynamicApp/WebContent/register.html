@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Register</title>
+</head>
+<body>
+<form method = "get" action = "/DynamicApp/registerpath">
+	<table>
+			<tr>
+			<td>Username <input type="text" name ="username"/>
+			</td>
+			</tr>
+			<tr>
+			<td>
+			Password <input type ="password" name="password"/>
+			</td>
+			</tr>
+			
+			<tr>
+			<td>Sex: 
+			<input type = "radio" name="sex" value="male"/>male
+			<input type ="radio" name="sex" value="female"/>female
+			</td>
+			</tr>
+			<tr>
+			<td>Hobby
+			<input type="checkbox" name="hobby" value="bicycle">bicycle
+			<input type="checkbox" name ="hobby" value="game" > game
+			<input type="checkbox" name ="hobby" value="run"> run<td/>
+			</tr>
+			<tr>
+			<td>City:  
+			<select name="city">
+			<option value="beijing">Beijing</option>
+		    <option value="shanghai">Shanghai</option>
+			<option value="taizhou">Taizhou</option>
+			<option value="suzhou">Suzhou</option></td>
+			</select>
+			</tr>
+			
+			<tr>
+			<td>Personal Introduce</td>
+			<td><textarea rows="5" cols="50" name="introduce"></textarea></td>
+			</tr>
+			
+			<tr>
+			<td><input colspan="2" type="submit" name="submit" value="register">
+			</td></tr>
+	
+	</table>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Register</title>
+<script type = "text/javascript">
+	function change(){
+		document.getElementById("myimg").src="/DynamicApp/checkcode?"+ new Date().getTime();
+	}	
+</script>
+	
+	
+</head>
+<body>
+<form method = "post" action = "checkcode">
+	Username: <input tpye = "text" /><br/>
+	Password: <input type = "text" /><br/>
+	checkcode:<input type ="text" name ="checkcode"/><img src="/DynamicApp/checkcode" onclick="change()" id="myimg" style="cursor:pointer;" ><br/>
+	<input type = "submit" value ="submit"/>
+
+</form>
+
+
+</body>
+</html>

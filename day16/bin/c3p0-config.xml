@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- private static ComboPooledDataSource ds = null;
+	static {
+		try {
+			ds = new ComboPooledDataSource();
+		} catch (Exception e) {
+			throw new ExceptionInInitializerError(e);
+		}
+	}
+-->
+<c3p0-config>
+  <default-config>
+  	<property name="driverClass">com.mysql.jdbc.Driver</property>
+    <property name="jdbcUrl">jdbc:mysql://localhost:3306/jdbc</property>
+    <property name="user">root</property>
+    <property name="password">root</property>
+  
+    <property name="acquireIncrement">5</property>
+    <property name="initialPoolSize">10</property>
+    <property name="minPoolSize">5</property>
+    <property name="maxPoolSize">20</property>
+  </default-config>
+
+  <named-config name="mysql"> 
+    <property name="driverClass">com.mysql.jdbc.Driver</property>
+    <property name="jdbcUrl">jdbc:mysql://localhost:3306/jdbc</property>
+    <property name="user">root</property>
+    <property name="password">root</property>
+  
+    <property name="acquireIncrement">5</property>
+    <property name="initialPoolSize">10</property>
+    <property name="minPoolSize">5</property>
+    <property name="maxPoolSize">20</property>
+  </named-config>
+</c3p0-config>

@@ -1,0 +1,323 @@
+sql: structured query language中文乱码(�ṹ����ѯ����)
+
+�û�������룺root
+
+
+����һ�����Ϊmydb1����ݿ⡣
+create database mydb1;
+
+�鿴������ݿ�
+show databases;
+
+����һ��ʹ��utf-8�ַ��mydb2��ݿ⡣
+create database mydb2 character set utf8;
+
+����һ��ʹ��utf-8�ַ�����У�Թ����mydb3��ݿ⡣
+create database mydb3 character set utf8 collate utf8_general_ci;
+
+��ʾ��Ĵ�����Ϣ
+show create database mydb3;
+
+ɾ��ǰ�洴����mydb1��ݿ�
+drop database mydb1;
+
+�鿴�������е���ݿ⣬��������ĳһ������ַ��޸�Ϊgb2312;
+alter database mydb2 character set gb2312;
+show create database mydb2;
+
+���ݿ�
+1��׼��������
+create database mydb1;
+use mydb1;
+create table test
+(
+	id int
+);
+insert into test(id) values(1);
+select * from test;
+
+2�����ݿ�
+  2.1 �˳�mysql�ͻ���:quit
+  2.2 ��windows�����д�������ִ�У�mysqldump -uroot -p mydb1>c:\test.sql
+
+3��ɾ��⣺drop database mydb1;
+
+4���ָ���(1)��
+	4.1 �����⣺create database mydb1;
+	4.2 source c:\test.sql  (ͨ��ִ�нű��ļ�ʵ��)
+5���ָ���(2)��mysql -uroot -p mydb1<c:\test.sql  (window����)
+
+
+����һ��Ա����
+use mydb1;  �����
+create table employee
+(
+	id int,
+	name varchar(20),
+	gender varchar(4),
+	birthday date,
+	entry_date date,
+	job varchar(40),
+	salary double,
+	resume text
+)character set utf8 collate utf8_general_ci;
+
+�鿴�������б�
+show tables;
+
+�鿴��Ĵ���ϸ��
+show create table employee;
+
+�鿴��Ľṹ
+desc employee;
+
+������Ա����Ļ�������һ��image�С�
+alter table employee add image blob;
+
+�޸�job�У�ʹ�䳤��Ϊ60��
+alter table employee modify job varchar(60); 
+
+ɾ��sex�С�
+alter table employee drop gender;
+
+�����Ϊuser��
+rename table employee to user;
+
+�޸ı���ַ�Ϊutf-8
+alter table user character set gb2312;
+show create table user;
+
+����name�޸�Ϊusername
+alter table user change column name username varchar(20);
+
+ʹ��insert�������в���һ��Ա������Ϣ��
+insert into employee(id,username,birthday,entry_date,job,salary,resume) values(1,'aaa','1980-09-09','1980-09-09','bbb',1000,'bbbbbbbb');
+
+�鿴��������
+select * from employee;
+
+
+ʹ��insert�������в���һ��Ա������Ϣ��
+insert into employee(id,username,birthday,entry_date,job,salary,resume) values(2,'С����','1980-09-09','1980-09-09','bbb',1000,'bbbbbbbb');
+
+����ʧ�ܺ�Ľ������
+show variables like 'chara%';
+set character_set_client=gb2312;
+
+
+��ʾʧ�ܺ�Ľ������
+set character_set_results=gb2312;
+
+������Ա��нˮ�޸�Ϊ5000Ԫ��
+update employee set salary=5000;
+
+������Ϊ��aaa����Ա��нˮ�޸�Ϊ3000Ԫ��
+update employee set salary=3000 where username='aaa';
+
+������Ϊ��aaa����Ա��нˮ�޸�Ϊ4000Ԫ,job��Ϊccc
+update employee set salary=4000,job='ccc' where username='aaa';
+
+��aaa��нˮ��ԭ�л�������1000Ԫ��
+update employee set salary=salary+1000 where username='aaa';
+
+ɾ��������Ϊ��zs���ļ�¼��
+delete from employee where username='С����';
+
+ɾ��������м�¼��
+delete from employee;
+
+ʹ��truncateɾ����м�¼��
+truncate table employee;
+
+��ѯ��������ѧ�����Ϣ��
+select id,name,chinese,english,math from student;
+select * from student;
+
+��ѯ��������ѧ�������Ͷ�Ӧ��Ӣ��ɼ���
+select name,english from student;
+
+���˱����ظ���ݡ�
+select distinct english from student;
+
+������ѧ���Ӣ������ϼ�10���س��֡�
+select name,english+10 from student;
+
+ͳ��ÿ��ѧ����ܷ֡�
+select name,(english+chinese+math) from student;
+
+ʹ�ñ����ʾѧ�����
+select name as ����,(english+chinese+math) as �ܷ� from student;
+select name ����,(english+chinese+math) �ܷ� from student;
+
+��ѯ����Ϊ�����ѧ��ɼ�
+select * from student where name='����';
+
+��ѯӢ��ɼ�����90�ֵ�ͬѧ
+select * from student where english>90;
+
+��ѯ�ִܷ���200�ֵ�����ͬѧ
+select * from student where (english+chinese+math)>200;
+
+��ѯӢ������� 80��90֮���ͬѧ��
+select * from student where english>80 and english<90;
+select * from student where english between 80 and 90;
+
+��ѯ��ѧ����Ϊ89,90,91��ͬѧ��
+select * from student where math=80 or math=90 or math=91;
+select * from student where math in(80,90,91);
+
+��ѯ���������ѧ��ɼ���
+select * from student where name like '��%';
+
+����ѧ�ɼ�����������
+select name,math from student order by math;
+
+���ܷ�����������Ȼ���ٰ��Ӹߵ��͵�˳�����
+select name from student order by (math+english+chinese) desc;
+
+�������ѧ��ɼ��������
+select name ����,(math+english+chinese) �ܷ� from student where name like '��%' order by (math+english+chinese) desc;
+
+ͳ��һ���༶���ж���ѧ��
+select count(*) from student;
+select count(name) from student;
+
+ͳ����ѧ�ɼ�����90��ѧ���ж��ٸ���
+select count(*) from student where math>90;
+
+ͳ���ִܷ���250�������ж��٣�
+select count(*) from student where (math+english+chinese)>250;
+
+ͳ��һ���༶��ѧ�ܳɼ���
+select sum(math) from student;
+
+ͳ��һ���༶���ġ�Ӣ���ѧ���Ƶ��ܳɼ�
+select sum(math),sum(chinese),sum(english) from student;
+
+ͳ��һ���༶���ġ�Ӣ���ѧ�ĳɼ��ܺ�
+select sum(chinese+math+english) from student;
+
+ͳ��һ���༶���ĳɼ�ƽ���
+select sum(chinese)/count(chinese) from student;
+
+��һ���༶��ѧƽ��֣�
+select avg(math) from student;
+
+��һ���༶�ܷ�ƽ���
+select avg(chinese+english+math) from student;
+
+��༶��߷ֺ���ͷ�
+select max(chinese+english+math),min(chinese+english+math) from student;
+
+�Զ���������Ʒ�������ʾÿһ����Ʒ���ܼ�
+select product from orders group by product;
+select product,sum(price) from orders group by product;
+
+��ѯ�����˼�����Ʒ������ÿ���ܼ۴���100����Ʒ
+select product from orders  group by product having sum(price)>100;
+
+
+�����������Լ��ı�
+create table test1
+(
+	id int primary key,
+	name varchar(20),
+	password varchar(20)
+);
+
+����һ������ �Զ������ı�
+create table test2
+(
+	id int primary key auto_increment,
+	name varchar(20),
+	password varchar(20)
+);
+
+create table test3
+(
+	id int primary key auto_increment,
+	name varchar(20) unique
+);
+
+create table test4
+(
+	id int primary key auto_increment,
+	name varchar(20) unique not null
+);
+
+//ʲô�����Լ��
+
+create table husband
+(
+	id int primary key,
+	name varchar(20)
+);
+
+create table wife
+(
+	id int primary key,
+	name varchar(20),
+	husband_id int,
+	constraint husband_id_FK foreign key(husband_id) references husband(id)
+);
+
+
+//һ�Զ����һ
+
+create table department
+(
+
+)
+
+create table employee
+(
+
+)
+
+
+//��Զ�
+
+create table teacher
+(
+	id int primary key,
+	name varchar(20),
+	salary double
+);
+
+create table student
+(
+	id int primary key,
+	name varchar(20)	
+);
+
+
+create table teacher_student
+(
+	teacher_id int,
+	student_id int,
+	primary key(teacher_id,student_id),
+	constraint teacher_id_FK foreign key(teacher_id) references teacher(id),
+	constraint student_id_FK foreign key(student_id) references student(id)	
+);
+
+//һ��һ
+
+create table person
+(
+	id int primary key,
+	name varchar(20)
+);
+
+create table idcard
+(
+	id int primary key,
+	address varchar(40),
+	constraint id_FK foreign key(id) references person(id)
+);
+
+
+	
+
+
+
+

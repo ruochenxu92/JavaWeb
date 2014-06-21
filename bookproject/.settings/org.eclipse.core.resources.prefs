@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/pages/listBooks.jsp=UTF-8
+encoding//src/google/controler/ShowAllBooksServlet.java=UTF-8
+encoding//src/google/domain/Book.java=UTF-8
